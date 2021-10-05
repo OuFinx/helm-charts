@@ -1,0 +1,8 @@
+apiVersion: v1
+description: A helm chart for github runners
+name: github-runners
+version: 0.0.1
+appVersion: 0.0.1
+maintainers:
+  - name: Volodymyr Stetsenko
+    email: volodymyr.stetsenko@alpacked.io

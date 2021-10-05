@@ -1,0 +1,46 @@
+{{- if .Values.repositories }}
+{{- range .Values.repositories }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: runner-{{ . | replace "/" "-" }}
+spec:
+  template:
+    spec:
+      labels:
+      {{- range $.Values.labels }}
+        - {{ . }}
+      {{- end }}
+      repository: {{ . }}
+      serviceAccountName: {{ $.Values.serviceAccountName | quote }}
+      {{- if $.Values.nodeSelector }}
+      nodeSelector:
+      {{- end }}
+      {{- if $.Values.nodeSelector }}
+{{ toYaml $.Values.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if $.Values.tolerations }}
+      tolerations:
+      {{- end }}
+      {{- if $.Values.tolerations }}
+{{ toYaml $.Values.tolerations | indent 8 }}
+      {{- end }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: runner-{{ . | replace "/" "-" }}
+spec:
+  minReplicas: {{ $.Values.minReplicas | default 1 }}
+  maxReplicas: {{ $.Values.maxReplicas | default 5 }}
+  scaleTargetRef:
+    name: runner-{{ . | replace "/" "-" }}
+  {{- if $.Values.metrics }}
+  metrics:
+  {{- end }}
+  {{- if $.Values.metrics }}
+{{ toYaml $.Values.metrics | indent 4 }}
+  {{- end }}
+{{- end }}
+{{- end }}
