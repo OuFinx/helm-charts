@@ -1,4 +1,4 @@
-# Descriotion
+# Description
 
 This helm chart allows to create `RunnerDeployment` and `HorizontalRunnerAutoscaler` resources for [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller).
 
