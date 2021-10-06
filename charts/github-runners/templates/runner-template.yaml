@@ -13,7 +13,9 @@ spec:
         - {{ . }}
       {{- end }}
       repository: {{ . }}
+      {{- if $.Values.serviceAccountName }}
       serviceAccountName: {{ $.Values.serviceAccountName | quote }}
+      {{- end }}
       {{- if $.Values.nodeSelector }}
       nodeSelector:
       {{- end }}

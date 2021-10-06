@@ -1,17 +1,13 @@
-repositories: ["oufinx/actions"]
-labels: ["my-label"]
+# List of repositories for which runners will be created
+repositories: []
 
+# Detailed https://github.com/actions-runner-controller/actions-runner-controller#runner-labels
+labels: ["self-hosted"]
+
+# Service account that runners will use
 serviceAccountName: "actions-runner-controller"
 
-nodeSelector:
-  lifecycle: spot
-
-tolerations:
-  - key: "workload"
-    operator: "Equal"
-    value: "dedicated"
-    effect: "NoSchedule"
-
+# Detailed https://github.com/actions-runner-controller/actions-runner-controller#autoscaling
 metrics:
 - type: PercentageRunnersBusy
   scaleUpThreshold: '0.75'    # The percentage of busy runners at which the number of desired runners are re-evaluated to scale up
