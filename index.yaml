@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   github-runners:
   - apiVersion: v1
+    created: "2021-10-06T08:19:58.96804976Z"
+    description: A helm chart for github runners
+    digest: 87b664c4ade33bec3f7315e12a6a9c7ee06aaa2b8c7316184e26beb3b7ae6d47
+    maintainers:
+    - email: volodymyr.stetsenko@alpacked.io
+      name: Volodymyr Stetsenko
+    name: github-runners
+    urls:
+    - https://github.com/OuFinx/helm-charts/releases/download/github-runners-1.0.0/github-runners-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v1
     appVersion: 0.0.1
     created: "2021-10-05T13:11:27.066824211Z"
     description: A helm chart for github runners
