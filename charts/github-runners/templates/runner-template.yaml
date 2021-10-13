@@ -4,7 +4,7 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
-  name: runner-{{ . | replace "/" "-" }}
+  name: runner-{{ . | replace "/" "-" | replace "_" "-" | lower }}
 spec:
   template:
     spec:
@@ -32,12 +32,12 @@ spec:
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
-  name: runner-{{ . | replace "/" "-" }}
+  name: runner-{{ . | replace "/" "-" | replace "_" "-" | lower }}
 spec:
   minReplicas: {{ $.Values.minReplicas | default 1 }}
   maxReplicas: {{ $.Values.maxReplicas | default 5 }}
   scaleTargetRef:
-    name: runner-{{ . | replace "/" "-" }}
+    name: runner-{{ . | replace "/" "-" | replace "_" "-" | lower }}
   {{- if $.Values.metrics }}
   metrics:
   {{- end }}
