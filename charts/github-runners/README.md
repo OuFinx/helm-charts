@@ -6,10 +6,11 @@ This is useful if you want to install these resources via [helm_release](https:/
 
 ## What need to change
 
-1. Set list of repositories
+1. You can set both the list of repositories and organization name
 
 ```
 repositories: ["oufinx/repo1", "oufinx/repo2"]
+organization: "oufinx"
 ```
 
 2. Set label that will be added for runner

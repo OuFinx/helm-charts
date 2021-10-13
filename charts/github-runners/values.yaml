@@ -1,6 +1,9 @@
 # List of repositories for which runners will be created
 repositories: []
 
+# The name of the organization
+organization: ""
+
 # Detailed https://github.com/actions-runner-controller/actions-runner-controller#runner-labels
 labels: ["self-hosted"]
 

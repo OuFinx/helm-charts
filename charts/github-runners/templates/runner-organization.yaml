@@ -1,0 +1,46 @@
+{{- if .Values.organization }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: RunnerDeployment
+metadata:
+  name: runner-{{ .Values.organization | replace "/" "-" | replace "_" "-" | lower }}
+spec:
+  template:
+    spec:
+      labels:
+      {{- range .Values.labels }}
+        - {{ . }}
+      {{- end }}
+      organization: {{ .Values.organization }}
+      {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName | quote }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+{{ toYaml .Values.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations:
+      {{- end }}
+      {{- if .Values.tolerations }}
+{{ toYaml .Values.tolerations | indent 8 }}
+      {{- end }}
+---
+apiVersion: actions.summerwind.dev/v1alpha1
+kind: HorizontalRunnerAutoscaler
+metadata:
+  name: runner-{{ .Values.organization | replace "/" "-" | replace "_" "-" | lower }}
+spec:
+  minReplicas: {{ .Values.minReplicas | default 1 }}
+  maxReplicas: {{ .Values.maxReplicas | default 5 }}
+  scaleTargetRef:
+    name: runner-{{ .Values.organization | replace "/" "-" | replace "_" "-" | lower }}
+  {{- if .Values.metrics }}
+  metrics:
+  {{- end }}
+  {{- if .Values.metrics }}
+{{ toYaml .Values.metrics | indent 4 }}
+  {{- end }}
+{{- end }}
