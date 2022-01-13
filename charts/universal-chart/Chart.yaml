@@ -1,0 +1,7 @@
+apiVersion: v1
+description: Universal helm chart for any deployment.
+name: universal-chart
+version: 1.0.0
+maintainers:
+  - name: Volodymyr Stetsenko
+    email: uastetsenko@gmail.com

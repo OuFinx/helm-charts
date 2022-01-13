@@ -1,0 +1,68 @@
+replicaCount: 1
+
+image:
+  repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+labels:
+  application: test
+  environment: dev
+
+args: []
+# - "api"
+# - "--config=/etc/config.yaml"
+# - "--level-channel=1"
+
+podAnnotations: {}
+
+imagePullSecrets: []
+
+securityContext: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+nodeSelector: {}
+
+tolerations: []
+  # - key: "workload"
+  #   operator: "Equal"
+  #   value: "dedicated"
+  #   effect: "NoSchedule"
+
+affinity: {}
+
+resources: []
+  # limits:
+  #   cpu: 50m
+  #   memory: 50Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 100Mi
+
+livenessProbe: []
+  # httpGet:
+  #   path: /
+  #   port: 80
+  # initialDelaySeconds: 10
+  # timeoutSeconds: 10
+
+readinessProbe: []
+  # httpGet:
+  #   path: /
+  #   port: 80
+  # initialDelaySeconds: 10
+  # timeoutSeconds: 10
+
+
+
+serviceAccount:
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the Release name
+  name: ""
+
