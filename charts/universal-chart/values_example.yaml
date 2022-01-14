@@ -10,10 +10,8 @@ labels:
   application: test
   environment: dev
 
-args: []
-# - "api"
-# - "--config=/etc/config.yaml"
-# - "--level-channel=1"
+# command: ["bin/bash", "-с", "mycommand"]
+# args: ["api", "--config=/etc/config.yaml", "--level-channel=1"]
 
 podAnnotations: {}
 
@@ -21,12 +19,12 @@ imagePullSecrets: []
 
 securityContext: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
+# podSecurityContext: 
+#   fsGroup: 2000
 
 nodeSelector: {}
 
-tolerations: []
+# tolerations:
   # - key: "workload"
   #   operator: "Equal"
   #   value: "dedicated"
@@ -56,8 +54,6 @@ readinessProbe: []
   # initialDelaySeconds: 10
   # timeoutSeconds: 10
 
-
-
 serviceAccount:
   create: false
   # Annotations to add to the service account
@@ -66,3 +62,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the Release name
   name: ""
 
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80

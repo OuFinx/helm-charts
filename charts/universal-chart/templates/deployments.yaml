@@ -3,13 +3,11 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}
   labels:
-  {{- with .Values.labels }}
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+  {{ with .Values.labels }}
+    {{ toYaml . | nindent 4 }}
+  {{ end }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.replicaCount | default "1" }}
   selector:
     matchLabels:
       helm.sh/chart: {{ .Release.Name }}
@@ -22,35 +20,37 @@ spec:
       labels:
         helm.sh/chart: {{ .Release.Name }}
     spec:
-      {{ if .Values.imagePullSecrets }}
-      imagePullSecrets:
       {{ with .Values.imagePullSecrets }}
+      imagePullSecrets:
         {{ toYaml . | nindent 8 }}
-      {{ end }}
       {{ end }}
       {{ if .Values.serviceAccount.create }}
       serviceAccountName: {{ .Values.serviceAccount.name | default .Release.Name }}
       {{ else }}
       serviceAccountName: "default"
+      {{ end }}
       {{ if .Values.podSecurityContext }}
       securityContext:
         {{ toYaml .Values.podSecurityContext | nindent 8 }}
-      {{ else }}
+      {{ end }}
       containers:
         - name: {{ .Release.Name }}
           {{ if .Values.securityContext }}
           securityContext:
             {{ toYaml .Values.securityContext | nindent 12 }}
-          {{ else }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-          {{- if .Values.command }}
-          command: {{ .command }}
-          {{- end }}
+          {{ end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy}}"
+          {{ if .Values.command }}
+          command: 
+          {{ range .Values.command }}
+            - {{ . | quote }}
+          {{ end }}
+          {{ end }}
           {{ if .Values.args }}
           args:
-          {{  range .Values.args }}
-            - {{ . }}
+          {{ range .Values.args }}
+            - {{ . | quote }}
           {{ end }}
           {{ end }}
           {{ if .Values.ports }}
